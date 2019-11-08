@@ -15,15 +15,21 @@
 class Solution:
     def zigzagLevelOrder(self, root: TreeNode) -> List[List[int]]:
         lst = []
-        queue = []
+        def search(node, depth):
+            if not node:
+                return
 
-        if not root:
-            return lst
-        
-        queue.append(root)
-        while len(queue) > 0:
+            if len(lst) < depth+1:
+                lst.append([])
+            if depth % 2 == 0:
+                lst[depth].append(node.val)
+            else:
+                lst[depth].insert(0, node.val)
             
-
+            search(node.left, depth+1)
+            search(node.right, depth+1)
+        
+        search(root, 0)
         return lst
 
 # @lc code=end
