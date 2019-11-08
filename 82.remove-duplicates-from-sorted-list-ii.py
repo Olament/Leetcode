@@ -15,20 +15,18 @@ class Solution:
     def deleteDuplicates(self, head: ListNode) -> ListNode:
         if not head:
             return head
-        
+
         dummy = ListNode(0)
         dummy.next = head
 
-        fast = slow = dummy
+        slow, fast = dummy, dummy.next.next
 
-        while slow:
-            while fast.next and slow.next.val == fast.next.val:
+        while fast:
+            while fast and fast.val == slow.next.val:
                 fast = fast.next
-            if slow.next != fast:
-                slow.next = fast.next
-                fast = slow
-            else:
-                slow = fast        
+            slow.next.next = fast
+            slow = slow.next
+
         return dummy.next
 # @lc code=end
 

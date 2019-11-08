@@ -8,15 +8,17 @@
 class Solution:
     def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
         lst = []
-
-        def search(index, subset):
-            lst.append(subset)
-            for i in range(index, len(nums)):
-                if len(subset) == 0 or nums[i] != subset[-1]:
-                    search(i+1, subset+[nums[i]])
+        def search(num, currSet, aval):
+            if num == 0:
+                lst.append(currSet)
+                return
+            for i in range(len(aval)):
+                search(num-1, currSet+[aval[i]], aval[:i]+aval[i+1:])
         
-        search(0, [])
-
+        for i in range(len(nums)+1):
+            search(i, [], nums)
+        
         return lst
+
 # @lc code=end
 

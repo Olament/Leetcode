@@ -10,22 +10,26 @@ class Solution:
         """
         Do not return anything, modify nums1 in-place instead.
         """
-        if not nums1:
-            nums1 = nums2
-            return
+        p1 = m-1
+        p2 = n-1
+        for i in range(m+n-1, -1, -1):
+            if p1 < 0:
+                nums1[i] = nums2[p2]
+                p2 -= 1
+                continue
+            if p2 < 0:
+                nums1[i] = nums1[p1]
+                p1 -= 1
+                continue
+                
+            if nums1[p1] > nums2[p2]:
+                nums1[i] = nums1[p1]
+                p1 -= 1
+            else:
+                nums1[i] = nums2[p2]
+                p2 -= 1
 
-        index = 0
-        while nums2 and index < len(nums1):
-            if nums2[0] < nums1[index]:
-                for i in range(index, len(nums1), -1):
-                    nums1[i+1] = nums1[i]
-                nums2 = nums2[1:]
-            index += 1
-        
-        # for i in range(index+1, index+1+len(nums2)):
-        #     nums1[i] = nums2[0]
-        #     nums2 = nums2[1:]
-        
+         
 
 
         
